@@ -25,7 +25,7 @@ exports.createProduct = async (req, res) => {
         await product.save();
         res.status(201).json({ message: 'Product created successfully', product });
     } catch (error) {
-        res.status(500).json({ message: 'Erorr creating product', error: error.message });
+        res.status(500).json({ message: 'Error creating product', error: error.message });
     }
 };
 
@@ -40,47 +40,43 @@ exports.updateProduct = async (req, res) => {
         }
         res.status(200).json({ message: 'Product updated successfully', product });
     } catch (error) {
-        res.status(500).json({ message: 'Erorr updating product', error: error.message });
+        res.status(500).json({ message: 'Error updating product', error: error.message });
     }
 };
 
 // Get a Product
 exports.getProduct = async (req, res) => {
     try {
-        const { id } = req.params; // Where id is the product id to be gotten
-        const { name, size, description, price, quantity, colour } = req.body;
-        const product = await Product.findById(id, { name, size, description, price, quantity, colour });
+        const { id } = req.params; // Where id is the product id to be retrieved
+        const product = await Product.findById(id);
         if (!product) {
             res.status(404).json({ message: 'Product not found' });
         }
-        res.status(200).json({ message: 'Product gotten successfully', product });
+        res.status(200).json({ message: 'Product retrieved successfully', product });
     } catch (error) {
-        res.status(500).json({ message: 'Erorr getting product', error: error.message });
+        res.status(500).json({ message: 'Error retrieving product', error: error.message });
     }
 };
 
 // Get all Product
 exports.getProducts = async (req, res) => {
     try {
-        const { name, size, description, price, quantity, colour } = req.body;
-        const products = await Product({ name, size, description, price, quantity, colour });
-        res.status(201).json({ message: 'Products gotten successfully', products });
+        const products = await Product.find();
+        res.status(201).json({ message: 'Products retrieved successfully', products });
     } catch (error) {
-        res.status(500).json({ message: 'Erorr getting products', error: error.message });
+        res.status(500).json({ message: 'Error retrieving products', error: error.message });
     }
 };
 
 // Delete a Product
 exports.deleteProduct = async (req, res) => {
     try {
-        const { id } = req.params; // Where id is the product id to be deleted
-        const { name, size, description, price, quantity, colour } = req.body;
-        const product = await Product.findByIdAndDelete(id, { name, size, description, price, quantity, colour });
+        const product = await Product.findByIdAndDelete(id);
         if (!product) {
             res.status(404).json({ message: 'Product not found' });
         }
         res.status(200).json({ message: 'Product deleted successfully', product });
     } catch (error) {
-        res.status(500).json({ message: 'Erorr deleting product', error: error.message });
+        res.status(500).json({ message: 'Error deleting product', error: error.message });
     }
 };

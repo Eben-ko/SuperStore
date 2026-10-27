@@ -29,8 +29,8 @@ const userSchema = new mongose.Schema({
     },
     role: {
         type: String,
-        enum: ['superadmin', 'storekeeper', "salesgirl"],
-        default: 'user'
+        enum: ['superadmin', 'storekeeper', 'salesperson'],
+        default: 'salesperson'
     },
 },
 {timestamps: true}); // Date created and updated at
